@@ -1,0 +1,15 @@
+{
+  "name": "world",
+  "version": "1.0.0",
+  "description": "explore a virtual world",
+  "main": "world.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node world.js",
+    "world": "node world.js",
+    "agent": "node agent.js"
+  },
+  "author": "Autoprof",
+  "license": "ISC"
+}
