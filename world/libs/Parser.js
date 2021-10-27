@@ -2,6 +2,13 @@ const Parser = {
 	true: function(state, str) {
 		return [true];
 	},
+	expr: f => function(state, str) {
+		return [f()];
+	},
+	ifexpr: f => function(state, str) {
+		var x = f();
+		return x ? [x] : null;
+	},
 	action: (f, p) => function(state, str) {
 		const n = p(state, str);
 		return n ? [f(n[0], state)] : n;
@@ -70,6 +77,22 @@ const Parser = {
 			state.pos = pos;
 		}
 		return null;
+	},
+	any: p => function(state, str) {
+		var n = p(state, str);
+		return n ? n : [null];
+	},
+	many: p => function(state, str) {
+		var n;
+		var ns = [];
+		while(n = p(state, str))
+			ns.push(n[0]);
+		return [ns];
+	},
+	more: p => function(state, str) {
+		var n = p(state, str);
+		if (!n) return n;
+		return [n.concat(Parser.many(p)(state, str)[0])];
 	},
 };
 export default Parser;

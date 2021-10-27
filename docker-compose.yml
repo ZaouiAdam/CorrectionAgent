@@ -2,10 +2,11 @@ version: '3'
 
 services:
   server:
-    image: node
+    build:
+      context: .
     restart: "unless-stopped"
-    #~ command: "node server.js"
-    command: "npm run world"
+    command: "tail -f /dev/null"
+    #~ command: "npm run world"
     working_dir: /app
     ports:
       - "62342:62342"

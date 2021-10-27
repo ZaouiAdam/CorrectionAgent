@@ -1,37 +1,41 @@
 
-export const Bye = {"type": "bye"};
-export const Nothing = {"type": "nothing"};
-export const Illegal = {"type": "illegal"};
-export const NoFuel = {"type": "nofuel"};
-export const NoGold = {"type": "nogold"};
-export const NoEffect = {"type": "noeffect"};
-export const Load = {"type": "load"};
-export const Dead = {"type": "dead"};
-export const Cell = position => ({...position, "type": "cell"});
-export const System = message => ({"type": "system", message});
+export const Context = {"type": "context"};
+export const State = {"type": "state"};
+export const Miss = {"type": "miss"};
+export const Fill = {"type": "fill"};
 
 
 
-function getContext(pos, cells) {
-	var cell, context = [[], [], []];
-	for(var i = -1; i <=  1; i++)
-		for(var j = -1; j <= 1; j++) {
-			cell = cells[pos.y + i][pos.x + j];
-			context[i + 1][j + 1] = Object.assign({}, cell, !cell.content ? {} : {content: {fuel: cell.content.fuel, gold: cell.content.gold, tokens: cell.content.tokens, players: cell.content.players.map(p => p.id)}});
-		}
-	return context;
+//~ export const NoEffect = {"type": "noeffect"};
+//~ export const Bye = {"type": "bye"};
+//~ export const Nothing = {"type": "nothing"};
+//~ export const Illegal = {"type": "illegal"};
+//~ export const NoFuel = {"type": "nofuel"};
+//~ export const NoGold = {"type": "nogold"};
+//~ export const Offline = {"type": "offline"};
+//~ export const Dead = {"type": "dead"};
+//~ export const System = message => ({"type": "system", message});
+
+function getState(player) {
+	return JSON.stringify({
+		id: player.id,
+		online: player.online,
+		gold: player.gold,
+		fuel: player.fuel,
+		position: player.position,
+	});
 }
 
 const Response = {
 
-	serialize: function (response, game) {
+	serialize: function (response, game, player, cell) {
 		switch (response.type)  {
-			case "nothing": return "";
-			case "system": return `response system ${response.message}`;
-			case "cell":
-				var cell = game.map.cells[response.y][response.x];
-				return `response cell ${JSON.stringify(getContext(response, game.map.cells))}`;
-			default: return `response ${response.type}`;
+			//~ case "nothing": return "";
+			//~ case "system": return `system ${response.message}`;
+			//~ case "offline": return `offline`;
+			case "state": return `state ${getState(player)}`;
+			case "context": return `context ${JSON.stringify(cell.getContext())}`;
+			default: return response.type;
 		}
 	},
 

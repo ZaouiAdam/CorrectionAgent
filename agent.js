@@ -16,34 +16,39 @@ var port		= 62342;
 var host		= "localhost";
 var dataQueue		= [];
 
-var socket = net.createConnection(port, host, function () {
+for(var i = 0, as = parseInt(process.argv[2]); i < as; i++)
+	(function () {
+		var socket = net.createConnection(port, host, function() {
+			Agents[process.argv[process.argv.length - 1]](socket)
+		});
+	})();
 
-	console.log("Connected to server");
-	var buffer	= "";
+//~ function lol(socket) {
 
-	function handle(data) {
-		console.log("<from server>: " + data.toString().trim());
-		var b = data.toString();
-		if ( b[b.length - 1] != "\n" )
-			buffer += b;
-		else {
-			var responses = (buffer + b).split("\n").map(x => x.trim()).filter(x => x.length);
-			while(responses.length)
-				dataQueue.push(responses.shift());
-			buffer = "";
-		}
-		if (dataQueue.length) {
-			var msgs = dataQueue.concat([]);
-			dataQueue = [];
-			Agents[process.argv.length > 2 ? process.argv[2] : RandomAgent](m => socket.write(m + "\n"), msgs);
-		}
-	}
+	//~ console.log("Connected to server");
+	//~ var buffer	= "";
+	//~ socket.on("data", handle);
+	//~ socket.on('end', () => console.log('disconnected from server'));
 
-	socket.on("data", handle);
-	socket.on('end', () => console.log('disconnected from server'));
+	//~ function handle(data) {
+		//~ console.log("<from server>: " + data.toString().trim());
+		//~ var b = data.toString();
+		//~ if ( b[b.length - 1] != "\n" )
+			//~ buffer += b;
+		//~ else {
+			//~ var responses = (buffer + b).split("\n").map(x => x.trim()).filter(x => x.length);
+			//~ while(responses.length)
+				//~ dataQueue.push(responses.shift());
+			//~ buffer = "";
+			//~ var msgs = dataQueue;
+			//~ dataQueue = [];
+			//~ setTimeout(function() {
+				//~ Agents[process.argv.length > 2 ? process.argv[2] : RandomAgent](m => socket.write(m + "\n"), msgs)
+			//~ }, 0);
+		//~ }
+	//~ }
 
-});
-
+//~ }
 
 
 //~ var waitQueue = [];

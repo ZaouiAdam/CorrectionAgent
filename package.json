@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node world.js",
-    "world": "node world.js",
-    "agent": "node agent.js"
+    "start": "clear; node world.js",
+    "world": "clear; node world.js",
+    "agent": "clear; node agent.js"
   },
   "author": "Autoprof",
   "license": "ISC"
