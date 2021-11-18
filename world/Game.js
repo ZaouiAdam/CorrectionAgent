@@ -1,3 +1,4 @@
+import Illegal from "./Action.js";
 import Action from "./Action.js";
 import Player from "./Player.js";
 
