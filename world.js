@@ -18,6 +18,9 @@ var gameConfiguration	= {
 
 
 const space		= SimpleMap.read(fs.readFileSync(mapFile, 'utf8'));
+//~ console.log(JSON.stringify(space.getMap()));
+
+
 const servers		= {socket: SocketServer, /*ws: WSServer*/};
 const game		= Game(space, gameConfiguration);
 const server		= servers.socket(game, conf).ref();

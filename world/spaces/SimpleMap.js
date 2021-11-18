@@ -22,6 +22,9 @@ function SimpleMap(map) {
 		apply({x, y}, dir) {
 			return {x: x + deltas[dir].x, y: y + deltas[dir].y};
 		},
+		getMap() {
+			return map;
+		},
 		getPlayers() {
 			return Object.values(players);
 		},
