@@ -13,11 +13,14 @@ function parseMessage(msg) {
 
 export default SocketAgent(function() {
 
-	//~ var map = [];
+	// rajouter ici les variable qui dure au dela de chaque action
+	// en, d'autres termes qui reste pendant toute la vie de l'agent.
+
+	var map = [];
 
 	// fonction qui contient la logique de l'agent
 	return function (sendMessage, messages) {
-		//debut de l'agent
+		//debut de l'action de l'agent
 
 		console.log(new Date, "NEW MESSAGES");
 		console.log(new Date, messages);
@@ -28,6 +31,6 @@ export default SocketAgent(function() {
 
 		sendMessage("context");
 
-		// fin de l'agent
+		// fin de l'action l'agent
 	};
 });
