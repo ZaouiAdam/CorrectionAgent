@@ -45,10 +45,10 @@ augmenter la vitesse : loop +
 diminuer la vitesse : loop -
 
 
-### les commande de jeux 
-context
-move north
-move south
-move east
-move west
+### les commandes de jeux 
+context : coute 1 gold et renvoie le contexte
+move north : coute 1 fuel et renvoie le contexte
+move south : coute 1 fuel et renvoie le contexte
+move east : coute 1 fuel et renvoie le contexte
+move west : coute 1 fuel et renvoie le contexte
 

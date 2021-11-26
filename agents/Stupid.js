@@ -26,7 +26,7 @@ export default SocketAgent(function() {
 		console.log("\n\n\n\n");
 
 
-		//~ sendMessage("context");
+		sendMessage("context");
 
 		// fin de l'agent
 	};
