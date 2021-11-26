@@ -6,11 +6,11 @@ import readline		from "readline";
 // import agents
 //////////////////////////////////////////
 import RandomAgent	from "./agents/Random.js";
-// import MyAgent	from "./agents/MyAgent.s";
+import StupidAgent	from "./agents/Stupid.js";
 //////////////////////////////////////////
 // put them in a hashtable
 //////////////////////////////////////////
-const Agents		= {RandomAgent, /*MyAgent*/};
+const Agents		= {RandomAgent, StupidAgent};
 
 var port		= 62342;
 var host		= "localhost";
