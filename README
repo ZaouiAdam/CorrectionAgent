@@ -26,6 +26,11 @@ en utilisant une ip : telnet xxx.yyy.zzz.ttt 62342
 
 ## Les commandes dans le telnet ( reconnu par le serveur )
 
+### les commandes generiques 
+pour se deconnecter : exit 
+pour arreter le serveur : stop
+pour evacuer tous les autres joueurs : flush
+
 ### Les commandes de carte
 afficher la map : map
 rafraichissement automatique de la map : map on
