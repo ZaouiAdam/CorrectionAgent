@@ -1,19 +1,19 @@
 
-export const Context = {"type": "context"};
-export const State = {"type": "state"};
-export const Miss = {"type": "miss"};
-export const Fill = {"type": "fill"};
-export const Illegal = {"type": "illegal"};
+export const Context	= {"type": "context"};
+export const State	= {"type": "state"};
+export const Miss	= {"type": "miss"};
+export const Fill	= {"type": "fill"};
+export const Illegal	= {"type": "illegal"};
+export const NoFuel	= {"type": "nofuel"};
+export const NoGold	= {"type": "nogold"};
+export const Dead	= {"type": "dead"};
 
 
 
 //~ export const NoEffect = {"type": "noeffect"};
 //~ export const Bye = {"type": "bye"};
 //~ export const Nothing = {"type": "nothing"};
-//~ export const NoFuel = {"type": "nofuel"};
-//~ export const NoGold = {"type": "nogold"};
 //~ export const Offline = {"type": "offline"};
-//~ export const Dead = {"type": "dead"};
 //~ export const System = message => ({"type": "system", message});
 
 function getState(player) {

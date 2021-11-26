@@ -5,8 +5,8 @@ services:
     build:
       context: .
     restart: "unless-stopped"
-    command: "tail -f /dev/null"
-    #~ command: "npm run world"
+    #~ command: "tail -f /dev/null"
+    command: "npm run world"
     working_dir: /app
     ports:
       - "62342:62342"

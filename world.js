@@ -5,9 +5,9 @@ import SocketServer	from "./world/libs/Server.Socket.js";
 //~ import WSServer		from "./world/libs/Server.WebSocket.js";
 
 
-var mapFile		= '/app/maps/Amaze.txt';
-var conf		= {port: 62342, host: "0.0.0.0"};
-var gameConfiguration	= {
+var mapFile		= '/app/maps/Hello.txt';
+var serverConf		= {port: 62342, host: "0.0.0.0"};
+var gameConf		= {
 				USER_MAXFUEL:	1000000,
 				USER_STARTGOLD:	1000000,
 				USER_STARTFUEL:	1000000,
@@ -18,11 +18,8 @@ var gameConfiguration	= {
 
 
 const space		= SimpleMap.read(fs.readFileSync(mapFile, 'utf8'));
-//~ console.log(JSON.stringify(space.getMap()));
-
-
 const servers		= {socket: SocketServer, /*ws: WSServer*/};
-const game		= Game(space, gameConfiguration);
-const server		= servers.socket(game, conf).ref();
+const game		= Game(space, gameConf);
+const server		= servers.socket(game, serverConf).ref();
 //~ const wserver		= servers.ws(game, {...conf, port: conf.port + 1});
-
+//~ console.log(JSON.stringify(space.getMap()));

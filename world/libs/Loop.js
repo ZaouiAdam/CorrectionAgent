@@ -24,11 +24,13 @@ export function TimeLoop(game, timeout = 500, running = false, currentLoop = 0, 
 	}
 
 	function speedUp() {
-		timeout -= 75;
+		timeout -= 50;
+		return timeout;
 	}
 
 	function speedDown() {
-		timeout += 75;
+		timeout += 50;
+		return timeout;
 	}
 
 	function clearAction(player) {

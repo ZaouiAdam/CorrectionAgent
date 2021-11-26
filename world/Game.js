@@ -1,4 +1,7 @@
-import Illegal from "./Action.js";
+import Illegal from "./Response.js";
+import NoFuel from "./Response.js";
+import NoGold from "./Response.js";
+import Dead from "./Response.js";
 import Action from "./Action.js";
 import Player from "./Player.js";
 
@@ -100,7 +103,7 @@ export default function(space, conf = {}) {
 				responses = action.type.execute(action.data, game, player, space.playerCell(player.id));
 				//~ hasChanged = responses.length == 1 && responses[0] != NoEffect;
 			}
-			if ( player.gold < 1 ) {
+			if ( player.gold < 1 && player.fuel < 1 ) {
 				player.alive = 0;
 				responses.push(Dead);
 			}

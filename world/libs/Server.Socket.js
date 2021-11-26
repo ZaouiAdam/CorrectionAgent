@@ -20,7 +20,7 @@ export default function (game, conf) {
 	return server.listen(conf.port, conf.host);
 
 	function onStart() {
-		//~ loop.start();
+		loop.start();
 		logger(new Date, `server listening on ${conf.host}:${conf.port}`)
 	}
 
@@ -119,8 +119,8 @@ export default function (game, conf) {
 					Parser.value(last, Parser.filter(() => !recurse, Parser.end)),
 					Parser.value(loop.stop, Parser.string("loop stop")),
 					Parser.value(loop.start, Parser.string("loop start")),
-					Parser.value(loop.speedUp, Parser.string("loop +")),
-					Parser.value(loop.speedDown, Parser.string("loop -")),
+					Parser.value(() => writer("loop timeout " + loop.speedUp() + " ms\n"), Parser.string("loop +")),
+					Parser.value(() => writer("loop timeout " + loop.speedDown() + " ms\n"), Parser.string("loop -")),
 					Parser.value(clean, Parser.string("exit")),
 					Parser.value(stop, Parser.string("stop")),
 					Parser.value(flush, Parser.string("flush")),
