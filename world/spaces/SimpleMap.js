@@ -137,7 +137,7 @@ export function Reader(mapString) {
 	var space = SimpleMap(map);
 
 	var len, row, cell, y = 0;
-	for(var line of mapString.trim().split(EOL).filter(l => l.length))
+	for(var line of mapString.trim().split(EOL).filter(l => l.length).map(l => l.trim()))
 		if ( line[0] == '/' )
 			map.comments.push(line);
 		else {
