@@ -1,3 +1,4 @@
+import {EOL} from 'os';
 import Cell from "../Cell.js";
 import {Wall, Fuel, Gold, Flag, Portal, Cell as Space, Start, Goal, Trap, Dealer, Bit, Origin, Marker, Clock, Oracle, Info} from "../Cells.js";
 
@@ -136,7 +137,7 @@ export function Reader(mapString) {
 	var space = SimpleMap(map);
 
 	var len, row, cell, y = 0;
-	for(var line of mapString.trim().split("\n").filter(l => l.length))
+	for(var line of mapString.trim().split(EOL).filter(l => l.length))
 		if ( line[0] == '/' )
 			map.comments.push(line);
 		else {
