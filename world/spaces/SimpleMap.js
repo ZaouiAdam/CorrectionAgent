@@ -144,7 +144,7 @@ export function Reader(mapString) {
 			map.cells.push(row);
 			if (!len) len = line.length;
 			else if (len != line.length)
-				throw new Error("Invalid map : line of different length : " + (y + 1));
+				throw new Error("Invalid map : line of different length on line " + (y + 1) + ", " + len + " != " + line.length);
 			for(var x = 0; x < line.length; x++) {
 				row.push(Cell(space, {x, y}, _Cell(line[x])));
 				index(map, {cell: row[x], position: {x, y}});
