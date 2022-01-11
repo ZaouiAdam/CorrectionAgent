@@ -181,6 +181,8 @@ function notify(messages) {
 		return;
 	}
 
+	if ( msgs.length )
+		return;
 	newMap = updateMap(newMap, lastDir, translateContext(context));
 	showMap(newMap);
 
