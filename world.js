@@ -5,7 +5,7 @@ import SocketServer	from "./world/libs/Server.Socket.js";
 //~ import WSServer		from "./world/libs/Server.WebSocket.js";
 
 
-var mapFile		= '/app/maps/Hello.txt';
+var mapFile		= '/app/maps/Amaze.txt';
 var serverConf		= {port: 62342, host: "0.0.0.0"};
 var gameConf		= {
 				USER_MAXFUEL:	1000000,

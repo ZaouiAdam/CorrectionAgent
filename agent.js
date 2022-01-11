@@ -7,10 +7,11 @@ import readline		from "readline";
 //////////////////////////////////////////
 import RandomAgent	from "./agents/Random.js";
 import StupidAgent	from "./agents/Stupid.js";
+import MapAgent		from "./agents/MapAgent.js";
 //////////////////////////////////////////
 // put them in a hashtable
 //////////////////////////////////////////
-const Agents		= {RandomAgent, StupidAgent};
+const Agents		= {RandomAgent, StupidAgent, MapAgent};
 
 var port		= 62342;
 var host		= "localhost";

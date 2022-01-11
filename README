@@ -57,3 +57,9 @@ move south : coute 1 fuel et renvoie le contexte
 move east : coute 1 fuel et renvoie le contexte
 move west : coute 1 fuel et renvoie le contexte
 
+
+### Pour demarrer le mapper manuel
+- ouvrir une invite dans le container : docker exec -it nomducontainer bash
+- aller dans le dossier agents : cd agents
+- lancer le mapper : node mapper.js
+
