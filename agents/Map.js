@@ -40,8 +40,20 @@ export function show(data) {
 					str += "#";
 					break;
 
+				case "fuel":
+					str += "🌢";
+					break;
+
 				case "start":
 					str += "S";
+					break;
+
+				case "portal":
+					str += c.id;
+					break;
+
+				case "gold":
+					str += "$";
 					break;
 
 				default:
@@ -53,6 +65,7 @@ export function show(data) {
 		x = 0;
 		str += "\n"
 	}
+	console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	console.log(str);
 }
 
@@ -92,7 +105,8 @@ export function update({position, map}, direction, context) {
 
 	for(var i = -1; i <= 1; i++)
 		for(var j = -1; j <= 1; j++)
-			map[position.y + i][position.x + j].type = context[i + 1][j + 1].type;
+			for (var k in context[i + 1][j + 1])
+			map[position.y + i][position.x + j][k] = context[i + 1][j + 1][k];
 
 	map[position.y][position.x].visited = true;
 	return {position, map};

@@ -40,12 +40,8 @@ var socket 	= net.createConnection(port, host, function() {
 var context;
 var localisation;
 var lastDirection;
-var ready = true;
 
 function sendMessage(m) {
-	if ( !ready )
-		return;
-	ready = false;
 	lastDirection = m;
 	//~ console.log(new Date, "sending message : ", m);
 	socket.write(m == 'context' ? m : `move ${m}`);
@@ -63,45 +59,67 @@ function notify(messages) {
 			i--;
 		}
 
-	if ( !context ) {
-		ready = true;
+	if ( !context )
 		return sendMessage('context');
-	}
 
-	if ( msgs.length ) {
-		ready = true;
+	if ( msgs.length )
 		return;
-	}
 
 	if (!localisation)
 		localisation = init(context);
 	else
 		localisation = update(localisation, lastDirection, context);
 
-	ready = true;
 	show(localisation);
+
+
+	sendMessage(decision(localisation));
+
+}
+
+
+function decision(localisation) {
+
+	return findNext(localisation);
 
 }
 
 
 
-var stdin = process.stdin;
-stdin.setRawMode(true);
-stdin.resume();
-stdin.setEncoding('utf8');
-stdin.on('data', function(key){
-    if (key == '\u001B\u005B\u0041') {
-        sendMessage('north');
-    }
-    if (key == '\u001B\u005B\u0043') {
-        sendMessage('east');
-    }
-    if (key == '\u001B\u005B\u0042') {
-        sendMessage('south');
-    }
-    if (key == '\u001B\u005B\u0044') {
-        sendMessage('west');
-    }
+function findNext({position: p, map}) {
+	var lst = getNext({position: p, map});
+	var visited = {};
+	var np;
+	while (lst.length) {
+		np = lst.shift();
+		if ( visited[np.x + '-' + np.y] )
+			continue;
+		visited[np.x + '-' + np.y] = true;
+		if (!map[np.y][np.x].visited)
+			return np.move;
+		else
+			lst = lst.concat(getNext({position: np, map}, np.move));
+	}
+	process.exit();
+}
 
-    if (key == '\u0003') { process.exit(); }    // ctrl-c
-});
+function getNext({position: p, map}, firstMove) {
+	var lst = [];
+
+	if ( map[p.y][p.x - 1].type != 'wall' )
+		lst.push({x: p.x - 1, y: p.y, move: firstMove || "west"});
+
+	if ( map[p.y - 1][p.x].type != 'wall' )
+		lst.push({x: p.x, y: p.y - 1, move: firstMove || "north"});
+
+	if ( map[p.y][p.x + 1].type != 'wall' )
+		lst.push({x: p.x + 1, y: p.y, move: firstMove || "east"});
+
+	if ( map[p.y + 1][p.x].type != 'wall' )
+		lst.push({x: p.x, y: p.y + 1, move: firstMove || "south"});
+
+	return lst;
+}
+
+
+
