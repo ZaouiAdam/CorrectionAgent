@@ -1,5 +1,11 @@
 import net		from "net";
 
+
+function delay(timeout) {
+	return new Promise((r,j) => setTimeout(r, timeout));
+}
+
+
 function showMap(data) {
 	var str = "";
 	var x = 0, y = 0;
@@ -29,8 +35,6 @@ function updateMap({position, size, map}, direction, context) {
 	var minPos = {x: newPosition.x - 1, y: newPosition.y - 1};
 	var maxPos = {x: newPosition.x + 1, y: newPosition.y + 1};
 
-	map[position.y][position.x] = ' ';
-
 	if (minPos.x < 0) {
 		for(var i = 0; i < map.length; i++)
 			map[i].unshift(undefined);
@@ -57,7 +61,7 @@ function updateMap({position, size, map}, direction, context) {
 
 	for(var i = -1; i <= 1; i++)
 		for(var j = -1; j <= 1; j++)
-			map[newPosition.y + i][newPosition.x + j] = map[newPosition.y + i][newPosition.x + j] === ' ' ? ' ' : context[i + 1][j + 1];
+			map[newPosition.y + i][newPosition.x + j] = context[i + 1][j + 1];
 
 	return {position: newPosition, size, map};
 
@@ -120,14 +124,6 @@ var map = [
 
 
 
-var stdin = process.stdin;
-stdin.setRawMode(true);
-stdin.resume();
-stdin.setEncoding('utf8');
-
-
-
-
 
 
 function parseMessage(msg) {
@@ -176,17 +172,38 @@ function notify(messages) {
 		}
 	if ( !context ) return sendMessage('context');
 
-
-	if (!newMap.map) {
-		newMap.map = translateContext(context);
-		showMap(newMap);
-		return;
-	}
-
 	if ( msgs.length )
 		return;
-	newMap = updateMap(newMap, lastDir, translateContext(context));
+
+
+	if (!newMap.map)
+		newMap.map = translateContext(context);
+	else newMap = updateMap(newMap, lastDir, translateContext(context));
+
 	showMap(newMap);
+
+
+	const deltas = {'move west': {x: -1, y: 0}, 'move east': {x: 1, y: 0}, 'move south': {x: 0, y: 1}, 'move north': {x: 0, y: -1}};
+	function move(context, dir) {
+		return context[deltas[dir].y + 1][deltas[dir].x + 1];
+	}
+
+	function filter(context, mv) {
+		switch(mv) {
+			case 'move north': return move(context, mv).type != "wall";
+			case 'move south': return move(context, mv).type != "wall";
+			case 'move east': return move(context, mv).type != "wall";
+			case 'move west': return move(context, mv).type != "wall";
+		}
+	}
+
+	const moves = ['move north', 'move east', 'move west', 'move south'].filter(move => filter(context, move));
+
+	//~ delay(2000).then(() => {
+		const mv = moves[0];
+		//~ console.log("sending to server : ", mv);
+		sendMessage(mv)
+	//~ });
 
 	//~ console.log(new Date, "receiving message : ");
 	//~ showContext(context);
@@ -207,28 +224,6 @@ function handle(data) {
 	}
 
 }
-
-
-
-stdin.on('data', function(key){
-    if (key == '\u001B\u005B\u0041') {
-        sendMessage('move north');
-    }
-    if (key == '\u001B\u005B\u0043') {
-        sendMessage('move east');
-    }
-    if (key == '\u001B\u005B\u0042') {
-        sendMessage('move south');
-    }
-    if (key == '\u001B\u005B\u0044') {
-        sendMessage('move west');
-    }
-
-    if (key == '\u0003') { process.exit(); }    // ctrl-c
-});
-
-
-
 
 
 

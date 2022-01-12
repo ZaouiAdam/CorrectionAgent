@@ -24,12 +24,12 @@ export function TimeLoop(game, timeout = 500, running = false, currentLoop = 0, 
 	}
 
 	function speedUp() {
-		timeout -= 50;
+		timeout -= 25;
 		return timeout;
 	}
 
 	function speedDown() {
-		timeout += 50;
+		timeout += 25;
 		return timeout;
 	}
 
