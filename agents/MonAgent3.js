@@ -41,7 +41,6 @@ var context;
 var localisation;
 var lastDirection;
 
-
 function sendMessage(m) {
 	lastDirection = m;
 	//~ console.log(new Date, "sending message : ", m);
@@ -87,7 +86,7 @@ function decision(localisation) {
 
 
 
-function findNext({ position: p, map }) {
+function findNext({ position: p, map }) {²
 	var lst = getNext({ position: p, map });
 	var visited = {};
 	var np;
@@ -99,7 +98,6 @@ function findNext({ position: p, map }) {
 			continue;
 		visited[np.x + '-' + np.y] = true;
 		if (!map[np.y][np.x].visited)
-
 			return np.move;
 		else
 			lst = getNext({ position: np, map }, np.move).concat(lst);
@@ -121,7 +119,7 @@ function getNext({ position: p, map }, firstMove) {
 
 	if (map[p.y + 1][p.x].type != 'wall')
 		lst.push({ x: p.x, y: p.y + 1, move: firstMove || "south" });
-	
+
 
 	return lst;
 }
